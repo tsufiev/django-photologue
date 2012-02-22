@@ -13,7 +13,8 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
+import django.template.defaultfilters
+from photologue.utils.urlify import Downcoder
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.functional import curry
 from django.utils.translation import ugettext_lazy as _
@@ -178,6 +179,10 @@ class Gallery(models.Model):
 
     def public(self):
         return self.photos.filter(is_public=True)
+
+def slugify(title):
+    downcode = Downcoder().downcode
+    return django.template.defaultfilters.slugify(downcode(title))
 
 
 class GalleryUpload(models.Model):
