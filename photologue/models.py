@@ -136,6 +136,7 @@ class Gallery(models.Model):
                                     help_text=_('Public galleries will be displayed in the default views.'))
     photos = models.ManyToManyField('Photo', related_name='galleries', verbose_name=_('photos'),
                                     null=True, blank=True)
+    title_photo = models.ForeignKey('Photo', null=True, blank=True, help_text=_('Select a title photo for the gallery.'))
     tags = TagField(help_text=tagfield_help_text, verbose_name=_('tags'))
 
     class Meta:
